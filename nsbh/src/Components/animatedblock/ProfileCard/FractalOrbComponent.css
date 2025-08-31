@@ -79,7 +79,11 @@
   opacity: 0.5;
   margin-top: 1vh;
 }
-
+.cursor-text {
+  pointer-events: auto;
+  cursor: none;
+  user-select: none; /* Запрещает выделение текста */
+}
 /* Canvas overlay */
 canvas {
   display: block;
@@ -161,12 +165,21 @@ canvas {
 
 .profile-twitter a {
   text-decoration: none;
-  color: inherit;
+  color: inherit; /* Использует цвет родителя */
   pointer-events: auto;
 }
 
 .profile-twitter a:hover {
   text-decoration: underline;
+}
+
+/* Также, возможно, стоит добавить для всех ссылок в content, если они есть */
+.content a,
+.content a:visited,
+.content a:hover,
+.content a:active {
+    color: inherit; /* Наследует цвет от родителя, т.е. primary-color */
+    text-decoration: none;
 }
 
 /* Изолированные стили только для компонента FractalOrb */

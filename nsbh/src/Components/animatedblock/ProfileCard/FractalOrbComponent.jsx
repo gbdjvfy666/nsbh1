@@ -297,26 +297,34 @@ const FractalOrbComponent = ({ width = '100%', height = '100vh' }) => {
       
 <div className="content">
   <div className="main-heading">
-    <h1 className="cursor-text"> {/* Добавляем класс сюда */}
+    <h1 className="cursor-text"> {/* Класс cursor-text должен быть здесь */}
       <span className="text-gray-400">Digital</span><br />
       <span className="text-gray-500">опыт</span>
     </h1>
   </div>
 
-  <div className="quote-container">
-    <div className="quote cursor-text">NSBH</div> {/* И сюда */}
-    <div className="author cursor-text">Истина в деталях, которые меняют целое</div> {/* И сюда */}
-  </div>
+<div className="quote-container">
+  <div className="quote cursor-text">NSBH</div> {/* Применяем к самому тексту */}
+  <div className="author cursor-text">Истина в деталях, которые меняют целое</div> {/* Применяем к самому тексту */}
+</div>
 
-  <div className="agency-description">
-    <p className="book cursor-text"> {/* И сюда */}
-      Мы — digital-агентство, которое разрабатывает
-      эффективные и эстетически безупречные решения
-      для вашего бизнеса. Наша цель — не просто
-      создать продукт, а сформировать будущее вашего
-      бренда.
-    </p>
-  </div>
+{/* То же самое для main-heading и agency-description */}
+<div className="main-heading">
+  <h1 className="cursor-text"> {/* Класс cursor-text должен быть здесь */}
+    <span className="text-gray-400">Digital</span><br />
+    <span className="text-gray-500">опыт</span>
+  </h1>
+</div>
+
+<div className="agency-description">
+  <p className="book cursor-text"> {/* Класс cursor-text здесь */}
+    Мы — digital-агентство, которое разрабатывает
+    эффективные и эстетически безупречные решения
+    для вашего бизнеса. Наша цель — не просто
+    создать продукт, а сформировать будущее вашего
+    бренда.
+  </p>
+</div>
 </div>
       
       
