@@ -33,7 +33,7 @@
 
 /* Content to be revealed */
 .content {
-  position: fixed;
+  position: absolute;
   top: 0;
   left: 0;
   width: 100%;
@@ -48,12 +48,14 @@
   color: var(--primary-color);
   pointer-events: none;
 }
-
 .quote-container {
   max-width: 90%;
   overflow: hidden;
 }
-
+.cursor-text {
+  cursor: none;
+  user-select: none;
+}
 .quote {
   font-family: var(--primary-font);
   font-size: var(--quote-size);
@@ -79,11 +81,7 @@
   opacity: 0.5;
   margin-top: 1vh;
 }
-.cursor-text {
-  pointer-events: auto;
-  cursor: none;
-  user-select: none;
-}
+
 /* Canvas overlay */
 canvas {
   display: block;
