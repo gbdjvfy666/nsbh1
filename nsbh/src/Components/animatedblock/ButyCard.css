@@ -1,0 +1,56 @@
+:root, *, ::before, ::after {
+  --dbckg0: #141414;
+  --dbckg1: #161616;
+  --dbckg2: #181818;
+  --dbckg3: #1a1a1a;
+  --dbckg4: #1c1c1c;
+  --main: #121212;
+  --border1: 1px solid var(--border1-c);
+  --border2: 1px solid var(--border2-c);
+  --border3: 1px solid var(--border3-c);
+  --border1-c: #1d1d1d;
+  --border2-c: #222;
+  --border3-c: #222;
+  --fs-logo-icon: 25rem;
+  --fs-logo1: 1.5rem;
+  --fs-logo1-space: .6rem;
+  --fs-logo2: 6.6rem;
+  --fs-logo3: .65rem;
+  --fs-logo3-w: 30dvw;
+  --fs-h0: 7rem;
+  --fs-h1: 5rem;
+  --fs-h2: 4rem;
+  --fs-h3: 3rem;
+  --fs-h4: 2rem;
+  --fs-h5: 1.5rem;
+  --fs-h6: 1.2rem;
+  --fs-body: 1rem;
+  --fs-base: 14px;
+  --fs-small: 0.9rem;
+  --fs-smaller: 0.8rem;
+  --fs-tiny: 0.65rem;
+  --fs-mini: 0.6rem;
+  --fs-deco: 0.5rem;
+  --f-body: 'Open Sans', sans-serif;
+  --f-deco: 'Gondgir';
+  --f-titles: 'IBM plex sans', sans-serif;
+  --f-mono: 'IBM plex mono', monospace;
+  --text: #888;
+  --text2: #666;
+  --text3: #444;
+  --subtitle: #bbb;
+  --title: #eee;
+}
+
+body {
+  background: var(--dbckg1);
+  --group: #7a62ae;
+  --group-75: rgb(from var(--group) r g b / 75%);
+  --group-50: rgb(from var(--group) r g b / 50%);
+  --group-25: rgb(from var(--group) r g b / 25%);
+}
+
+.ficha {
+  width: clamp(304px, 70%, 1104px);
+  margin: 80px auto;
+}

@@ -1,0 +1,7 @@
+шрифты: Готический как моя тату font-deutsch
+звезждочный font-zvezda
+<h1 className="text-6xl font-bebas">Bebas Neue ВЕБ-РАЗРАБОТКА</h1>
+<h1 className="text-6xl font-dela">Dela Gothic One ВЕБ-РАЗРАБОТКА</h1>
+<h1 className="text-lg font-unbounded font-[400]">Unbounded Paragraph ВЕБ-РАЗРАБОТКА</h1>
+<h1 className="font-tektur font-[800] text-2xl">Tektur Bold Text ВЕБ-РАЗРАБОТКА</h1>
+<h1 className="font-rubik text-6xl">Rubik Mono One ВЕБ-РАЗРАБОТКА</h1>

@@ -1,0 +1,489 @@
+/*
+|-------------------------------------------------------------------------------
+|
+| 🌐 ГЛОБАЛЬНЫЕ ИМПОРТЫ И ПЕРЕМЕННЫЕ
+|
+|-------------------------------------------------------------------------------
+*/
+
+/* --- Google Fonts --- */
+@import url('https://fonts.googleapis.com/css2?family=Anton&family=Bebas+Neue&family=Dela+Gothic+One&family=Fredoka+One&family=Inter:wght@400;500;700&family=Karantina:wght@300;400;700&family=Noto+Sans+SC:wght@100..900&family=Oswald:wght@200..700&family=Poppins:wght@400;600;700&family=Rubik+Mono+One&family=Tektur:wght@400..900&family=Unbounded:wght@200..900&display=swap');
+
+/* --- Локальные шрифты --- */
+@font-face {
+  font-family: 'Behance';
+  src: url('/fonts/behance-67842caacaac4.ttf') format('truetype');
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Damn';
+  src: url('/fonts/DAMN.ttf') format('truetype');
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Deutsch Gothic';
+  src: url('/fonts/DeutschGothic.ttf') format('truetype');
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'IndiKazka';
+  src: url('/fonts/IndiKazka4F.ttf') format('truetype');
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Jost';
+  src: url('/fonts/Jost-Regular.ttf') format('truetype');
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Kankin';
+  src: url('/fonts/kankin.ttf') format('truetype');
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Maler';
+  src: url('/fonts/Maler.ttf') format('truetype');
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'MullerNextWide';
+  src: url('/fonts/MullerNextWideTrial-Heavy.otf') format('opentype');
+  font-weight: 800;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Neopixel';
+  src: url('/fonts/NEOPIXEL-Regular.otf') format('opentype');
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Orpheus';
+  src: url('/fonts/Orpheus.ttf') format('truetype');
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Petrogradski';
+  src: url('/fonts/Petrogradski.otf') format('opentype');
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'PPNeueMachina';
+  src: url('/fonts/PPNeueMachina-Regular.otf') format('opentype');
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Receipt';
+  src: url('/fonts/Receipt-Regular.otf') format('opentype');
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Sorcerer';
+  src: url('/fonts/Sorcerer.otf') format('opentype');
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Zvezda NHZDN';
+  src: url('/fonts/ZvezdaBoldItalic.ttf') format('truetype');
+  font-style: italic;
+  font-weight: bold;
+  font-display: swap;
+}
+
+@import "tailwindcss";
+
+/*
+|-------------------------------------------------------------------------------
+|
+| 🎨 CSS-ПЕРЕМЕННЫЕ
+|
+|-------------------------------------------------------------------------------
+*/
+
+:root {
+  /* --- Шрифты --- */
+  --font-primary: 'Inter', sans-serif;
+  --font-bebas: 'Bebas Neue', sans-serif;
+  --font-poppins: 'Poppins', sans-serif;
+  --font-fredoka: 'Fredoka One', cursive;
+  --font-oswald: 'Oswald', sans-serif;
+  --font-tektur: 'Tektur', sans-serif;
+  --font-noto: 'Noto Sans SC', sans-serif;
+  --font-rubik: 'Rubik Mono One', monospace;
+  --font-unbounded: 'Unbounded', sans-serif;
+  --font-dela: 'Dela Gothic One', sans-serif;
+  --font-muller: 'MullerNextWide', sans-serif;
+  --font-anton: 'Anton', sans-serif;
+
+  /* --- Локальные шрифты --- */
+  --font-ppneue: 'PPNeueMachina', sans-serif;
+  --font-petrogradski: 'Petrogradski', sans-serif;
+  --font-behance: 'Behance', sans-serif;
+  --font-neopixel: 'Neopixel', sans-serif;
+  --font-damn: 'Damn', sans-serif;
+  --font-maler: 'Maler', sans-serif;
+  --font-indikazka: 'IndiKazka', sans-serif;
+  --font-receipt: 'Receipt', monospace;
+  --font-deutsch: 'Deutsch Gothic', serif;
+  --font-zvezda: 'Zvezda NHZDN', serif;
+  --font-orpheus: 'Orpheus', serif;
+  --font-sorcerer: 'Sorcerer', serif;
+  --font-kankin: 'Kankin', sans-serif;
+  --font-jost: 'Jost', sans-serif;
+
+  /* --- Палитра Ivory --- */
+  --color-ivory-50: #fffefc;
+  --color-ivory-100: #fcfaf5;
+  --color-ivory-200: #f8f5ec;
+  --color-ivory-300: #f0ebdd;
+  --color-ivory-400: #e5dfcc;
+  --color-ivory-500: #d6cfb8;
+  --color-ivory-600: #b8b09a;
+  --color-ivory-700: #8a8374;
+  --color-ivory-800: #5a5448;
+  --color-ivory-900: #2d2921;
+  --color-follower: #b3b3b3;
+  /* --- Палитра Amber (акцентная) --- */
+  --color-amber-100: #ffecb3;
+  --color-amber-200: #ffe082;
+  --color-amber-300: #ffd54f;
+  --color-amber-400: #ffca28;
+  --color-amber-500: #ffc107;
+  --color-amber-600: #ffb300;
+  
+  /* --- Luxury metallic --- */
+  --color-gold-100: #fff9e6;
+  --color-gold-200: #ffedb3;
+  --color-gold-300: #e6c87d;
+}
+
+
+/*
+|-------------------------------------------------------------------------------
+|
+| 📝 БАЗОВЫЕ СТИЛИ
+|
+|-------------------------------------------------------------------------------
+*/
+
+html,
+body {
+  scroll-behavior: auto !important;
+  overflow-x: hidden;
+  font-family: var(--font-primary);
+  line-height: 1.5;
+  font-weight: 400;
+  margin: 0;
+  min-width: 320px;
+  min-height: 100vh;
+}
+
+body {
+  font-family: var(--font-muller); /* Пример глобального шрифта */
+}
+
+
+/*
+|-------------------------------------------------------------------------------
+|
+| ⚙️ TAILWIND CSS СЛОИ
+|
+|-------------------------------------------------------------------------------
+*/
+
+@layer base {
+  .font-poppins { font-family: var(--font-poppins); }
+  .font-anton { font-family: var(--font-anton); }
+  .font-fredoka { font-family: var(--font-fredoka); }
+  .font-bebas { font-family: var(--font-bebas); }
+  .font-jost { font-family: var(--font-jost); }
+  .font-oswald { font-family: var(--font-oswald); }
+  .font-tektur { font-family: var(--font-tektur); }
+  .font-noto { font-family: var(--font-noto); }
+  .font-rubik { font-family: var(--font-rubik); }
+  .font-unbounded { font-family: var(--font-unbounded); }
+  .font-dela { font-family: var(--font-dela); }
+}
+
+@layer utilities {
+  .font-ppneue { font-family: var(--font-ppneue); }
+  .font-petrogradski { font-family: var(--font-petrogradski); }
+  .font-behance { font-family: var(--font-behance); }
+  .font-neopixel { font-family: var(--font-neopixel); }
+  .font-damn { font-family: var(--font-damn); }
+  .font-maler { font-family: var(--font-maler); }
+  .font-indikazka { font-family: var(--font-indikazka); }
+  .font-receipt { font-family: var(--font-receipt); }
+  .font-deutsch { font-family: var(--font-deutsch); }
+  .font-zvezda { font-family: var(--font-zvezda); }
+  .font-orpheus { font-family: var(--font-orpheus); }
+  .font-sorcerer { font-family: var(--font-sorcerer); }
+  .font-kankin { font-family: var(--font-kankin); }
+
+  /* --- Анимации --- */
+  @keyframes shine {
+    0% { background-position: 100%; }
+    100% { background-position: -100%; }
+  }
+  .animate-shine { animation: shine 5s linear infinite; }
+
+  /* --- Кастомные эффекты --- */
+  .transform-style-preserve-3d { transform-style: preserve-3d; }
+  .perspective-800 { perspective: 800px; }
+  .perspective-600 { perspective: 600px; }
+  
+  /* --- Стили Swiper --- */
+  .swiper-button-next,
+  .swiper-button-prev {
+    @apply w-10 h-10 rounded-full bg-white text-black text-sm flex items-center justify-center transition-all duration-300 z-10;
+  }
+  .swiper-button-next:hover,
+  .swiper-button-prev:hover {
+    @apply bg-gray-300;
+  }
+  .custom-bullet {
+    @apply w-1.5 h-1.5 rounded-full bg-neutral-400 opacity-60 transition duration-300;
+  }
+  .custom-bullet-active {
+    @apply bg-white opacity-100;
+  }
+  .swiper-pagination {
+    @apply !bottom-7;
+  }
+  .swiper-pagination-bullet {
+    @apply bg-neutral-400 opacity-60 w-1.5 h-1.5 rounded-full mx-1 transition-all;
+  }
+  .swiper-pagination-bullet-active {
+    @apply bg-white opacity-100;
+  }
+
+  /* --- Стили для продукта --- */
+  .bg-grid {
+    background-image:
+      repeating-linear-gradient(to right, transparent 0 150px, #0001 150px 151px),
+      repeating-linear-gradient(to bottom, transparent 0 150px, #0001 150px 151px),
+      linear-gradient(to right, #CDCDCDcc, #CDCDCDcc),
+      url(images/bg.jpg);
+  }
+  .product {
+    @apply absolute left-1/2 translate-x-[-50%] bottom-[170px] z-20 w-[500px] transition-all duration-700;
+  }
+  .product:hover {
+    bottom: 300px;
+  }
+  .soda {
+    background: var(--url) var(--left, 0px), url(images/mockup.png) 0 0;
+    background-size: auto 100%;
+    mask-image: url(images/mockup.png);
+    mask-size: auto 100%;
+    background-blend-mode: multiply;
+    width: 280px;
+    aspect-ratio: 2 / 4;
+    transition: 0.8s;
+    position: absolute;
+    bottom: 0;
+    left: 50%;
+    transform: translateX(-50%);
+  }
+  .soda-alt {
+    opacity: 0;
+  }
+  .product:hover .soda-alt {
+    opacity: 1;
+    --left: 500px;
+  }
+  .product:hover .soda:first-child {
+    opacity: 0;
+    --left: 500px;
+  }
+  .rock {
+    @apply absolute inset-0 w-full pointer-events-none;
+  }
+  .rock-img-1 {
+    @apply absolute h-[170px] left-1/2 bottom-[30px] z-10 translate-x-[-50%] transition-all duration-700;
+  }
+  .rock-img-2 {
+    @apply absolute h-1/2 left-0 bottom-0 transition-all duration-700;
+  }
+  .rock-img-3 {
+    @apply absolute h-full right-0 bottom-[-100px] transition-all duration-700;
+    rotate: -25deg;
+  }
+  .banner:has(.product:hover) .rock-img-1 {
+    transform: translateX(-50%) translateY(50px);
+  }
+  .banner:has(.product:hover) .rock-img-2 {
+    transform: translateX(-100px) translateY(100px);
+  }
+  .banner:has(.product:hover) .rock-img-3 {
+    transform: translateX(100px) translateY(100px);
+  }
+  
+  /* --- Разные стили --- */
+  .heading { font-family: var(--font-heading); font-weight: 700; }
+  .subheading { font-family: var(--font-bebas); } /* Используем общую переменную */
+
+  .decorative-circle {
+    position: absolute;
+    border-radius: 50%;
+    filter: blur(40px);
+    opacity: 0.4;
+    z-index: 0;
+  }
+
+  .rounded-luxury { border-radius: 1.25rem; }
+  .rounded-luxury-lg { border-radius: 1.75rem; }
+  .shadow-luxury { box-shadow: 0 10px 30px -10px rgba(31, 29, 24, 0.1); }
+  .hover\:shadow-luxury:hover { box-shadow: 0 15px 40px -10px rgba(31, 29, 24, 0.15); }
+  .border-luxury { border: 1px solid rgba(218, 210, 193, 0.5); }
+  
+  /* --- Luxury элементы --- */
+  .font-serif { font-family: 'Cormorant Garamond', 'Times New Roman', serif; }
+  .font-display { font-family: 'Playfair Display', 'Times New Roman', serif; }
+  .text-luxury { letter-spacing: 0.02em; font-weight: 450; }
+  .btn-luxury { transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1); }
+  .btn-luxury:hover { transform: translateY(-2px); box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1); }
+  .fancy-underline { position: relative; display: inline-block; }
+  .fancy-underline::after {
+    content: '';
+    position: absolute;
+    bottom: -4px;
+    left: 0;
+    width: 100%;
+    height: 1px;
+    background: linear-gradient(90deg, transparent, var(--color-amber-400), transparent);
+    opacity: 0.7;
+  }
+  .embossed { position: relative; }
+  .embossed::after {
+    content: '';
+    position: absolute;
+    top: 1px;
+    left: 1px;
+    right: 1px;
+    bottom: 1px;
+    border-radius: inherit;
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    pointer-events: none;
+    mix-blend-mode: overlay;
+  }
+}
+
+/*
+|-------------------------------------------------------------------------------
+|
+| ⚙️ МЕДИА-ЗАПРОСЫ
+|
+|-------------------------------------------------------------------------------
+*/
+
+@media (max-width: 1023px) {
+  .soda {
+    width: 400px;
+  }
+}
+
+@media (max-width: 768px) {
+  .luxury-responsive {
+    padding: 2.5rem 1.5rem;
+  }
+  
+  .luxury-responsive-text {
+    font-size: 1.75rem;
+  }
+}
+
+@media (max-width: 767px) {
+  .soda {
+    width: 250px;
+  }
+}
+
+/*
+|-------------------------------------------------------------------------------
+|
+| 🖱️ КУРСОР И СКРОЛЛБАР
+|
+|-------------------------------------------------------------------------------
+*/
+
+.mouse-follower {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 15px; /* Уменьшаем размер для компактности */
+  height: 15px;
+  border-radius: 50%;
+  background-color: var(--color-follower); /* Используем серый цвет */
+  opacity: 0.7; /* Делаем его полупрозрачным */
+  pointer-events: none;
+  z-index: 9999;
+  mix-blend-mode: difference; /* Стильный эффект на контрастных фонах */
+  transition: opacity 0.3s ease; /* Плавное исчезновение */
+  will-change: transform;
+}
+
+.mouse-follower.hidden {
+  opacity: 0;
+}
+
+.scrollbar-custom::-webkit-scrollbar {
+  height: 6px;
+  width: 6px;
+}
+.scrollbar-custom::-webkit-scrollbar-track {
+  background: transparent;
+}
+.scrollbar-custom::-webkit-scrollbar-thumb {
+  background-color: rgba(100, 100, 100, 0.4);
+  border-radius: 8px;
+  border: 1px solid transparent;
+  background-clip: content-box;
+}
+.scrollbar-custom::-webkit-scrollbar-thumb:hover {
+  background-color: rgba(100, 100, 100, 0.6);
+}
+
+html[data-theme='dark'] .scrollbar-custom::-webkit-scrollbar-thumb {
+  background-color: rgba(255, 255, 255, 0.2);
+}
