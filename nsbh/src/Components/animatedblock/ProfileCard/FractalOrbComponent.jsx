@@ -3,23 +3,18 @@ import * as THREE from 'three';
 import './FractalOrbComponent.css';
 
 const FractalOrbComponent = ({ width = '100%', height = '100vh' }) => {
-  // All hooks must be called here, at the top level.
   const containerRef = useRef(null);
   const sceneRef = useRef(null);
   const cursorRef = useRef(null);
   const rendererRef = useRef(null);
-  const mousePosition = useRef({ x: 0, y: 0 });
-  const smoothedMousePosition = useRef({ x: 0, y: 0 });
-  const requestRef = useRef();
-  
-  // This is the main useEffect for all setup logic
+
   useEffect(() => {
     if (!containerRef.current || !sceneRef.current) return;
 
     const container = containerRef.current;
     const sceneElement = sceneRef.current;
 
-    // --- Three.js Logic ---
+    // Scene, Camera, Renderer
     const scene = new THREE.Scene();
     const camera = new THREE.OrthographicCamera(-1, 1, 1, -1, 0.1, 10);
     camera.position.z = 1;
@@ -30,6 +25,7 @@ const FractalOrbComponent = ({ width = '100%', height = '100vh' }) => {
     const smoothedMouse = new THREE.Vector2(0, 0);
     let mouseDown = false;
 
+    // Default values
     const primaryColor = [255, 255, 255];
     const secondaryColor = [255, 255, 255];
     const accentColor = [0, 0, 0];
@@ -44,6 +40,7 @@ const FractalOrbComponent = ({ width = '100%', height = '100vh' }) => {
     const animationSpeed = 0.02;
     const autoRotate = true;
 
+    // Shader Material
     const shaderMaterial = new THREE.ShaderMaterial({
       uniforms: {
         iResolution: {
@@ -206,66 +203,63 @@ const FractalOrbComponent = ({ width = '100%', height = '100vh' }) => {
     updateSize();
     sceneElement.appendChild(renderer.domElement);
 
-    // --- Custom Cursor Logic ---
-    const handleMouseMove = (e) => {
-      mousePosition.current = {
-        x: e.clientX,
-        y: e.clientY,
-      };
+    const handleMouseMove = (event) => {
+      const rect = container.getBoundingClientRect();
+      const mouseX = (event.clientX - rect.left) / rect.width;
+      const mouseY = 1.0 - (event.clientY - rect.top) / rect.height;
+      mouse.set(mouseX, mouseY);
+      
+      if (cursorRef.current) {
+        cursorRef.current.style.left = `${event.clientX}px`;
+        cursorRef.current.style.top = `${event.clientY}px`;
+      }
     };
 
-    const handleScroll = () => {
-      mousePosition.current = {
-        x: mousePosition.current.x,
-        y: mousePosition.current.y,
-      };
+    const handleMouseDown = () => {
+      mouseDown = true;
+      shaderMaterial.uniforms.mouseDown.value = 1.0;
     };
 
-    const animate = () => {
+    const handleMouseUp = () => {
+      mouseDown = false;
+      shaderMaterial.uniforms.mouseDown.value = 0.0;
+    };
+
+    const handleMouseEnter = () => {
+        if (cursorRef.current) {
+          cursorRef.current.style.display = 'block';
+        }
+    };
+  
+    const handleMouseLeave = () => {
+        if (cursorRef.current) {
+          cursorRef.current.style.display = 'none';
+        }
+    };
+    
+    container.addEventListener("mousemove", handleMouseMove);
+    container.addEventListener("mousedown", handleMouseDown);
+    container.addEventListener("mouseup", handleMouseUp);
+    container.addEventListener("mouseenter", handleMouseEnter);
+    container.addEventListener("mouseleave", handleMouseLeave);
+
+    let animationId;
+    function animate() {
+      animationId = requestAnimationFrame(animate);
+      
       const time = performance.now() * 0.001;
       shaderMaterial.uniforms.iTime.value = time;
+
       smoothedMouse.lerp(mouse, 0.1);
       shaderMaterial.uniforms.smoothedMouse.value.set(
         smoothedMouse.x * container.clientWidth,
         smoothedMouse.y * container.clientHeight
       );
 
-      const targetX = mousePosition.current.x + window.scrollX;
-      const targetY = mousePosition.current.y + window.scrollY;
-
-      smoothedMousePosition.current.x += (targetX - smoothedMousePosition.current.x) * 0.1;
-      smoothedMousePosition.current.y += (targetY - smoothedMousePosition.current.y) * 0.1;
-      
-      if (cursorRef.current) {
-        cursorRef.current.style.transform = `translate(${smoothedMousePosition.current.x}px, ${smoothedMousePosition.current.y}px)`;
-      }
-      
       renderer.render(scene, camera);
-      requestRef.current = requestAnimationFrame(animate);
-    };
+    }
 
-    window.addEventListener('mousemove', handleMouseMove);
-    window.addEventListener('scroll', handleScroll);
-    
-    requestRef.current = requestAnimationFrame(animate);
-
-    const handleMouseEnterText = () => {
-      if (cursorRef.current) {
-        cursorRef.current.classList.add('on-text');
-      }
-    };
-    
-    const handleMouseLeaveText = () => {
-      if (cursorRef.current) {
-        cursorRef.current.classList.remove('on-text');
-      }
-    };
-
-    const textElements = document.querySelectorAll('.cursor-text');
-    textElements.forEach(element => {
-      element.addEventListener('mouseenter', handleMouseEnterText);
-      element.addEventListener('mouseleave', handleMouseLeaveText);
-    });
+    animate();
 
     const resizeObserver = new ResizeObserver(() => {
       const width = container.clientWidth;
@@ -277,16 +271,14 @@ const FractalOrbComponent = ({ width = '100%', height = '100vh' }) => {
     resizeObserver.observe(container);
 
     return () => {
-      cancelAnimationFrame(requestRef.current);
+      cancelAnimationFrame(animationId);
       resizeObserver.disconnect();
       
-      window.removeEventListener('mousemove', handleMouseMove);
-      window.removeEventListener('scroll', handleScroll);
-
-      textElements.forEach(element => {
-        element.removeEventListener('mouseenter', handleMouseEnterText);
-        element.removeEventListener('mouseleave', handleMouseLeaveText);
-      });
+      container.removeEventListener("mousemove", handleMouseMove);
+      container.removeEventListener("mousedown", handleMouseDown);
+      container.removeEventListener("mouseup", handleMouseUp);
+      container.removeEventListener("mouseenter", handleMouseEnter);
+      container.removeEventListener("mouseleave", handleMouseLeave);
 
       if (sceneElement.contains(renderer.domElement)) {
         sceneElement.removeChild(renderer.domElement);
@@ -303,29 +295,38 @@ const FractalOrbComponent = ({ width = '100%', height = '100vh' }) => {
     >
       <div ref={sceneRef} className="three-container"></div>
       
-      <div className="content">
-        <div className="main-heading">
-          <h1 className="cursor-text">
-            <span className="text-gray-400">Digital</span><br />
-            <span className="text-gray-500">опыт</span>
-          </h1>
-        </div>
+<div className="content">
+  <div className="main-heading">
+    <h1 className="cursor-text"> {/* Класс cursor-text должен быть здесь */}
+      <span className="text-gray-400">Digital</span><br />
+      <span className="text-gray-500">опыт</span>
+    </h1>
+  </div>
 
-        <div className="quote-container">
-          <div className="quote cursor-text">NSBH</div>
-          <div className="author cursor-text">Истина в деталях, которые меняют целое</div>
-        </div>
+<div className="quote-container">
+  <div className="quote cursor-text">NSBH</div> {/* Применяем к самому тексту */}
+  <div className="author cursor-text">Истина в деталях, которые меняют целое</div> {/* Применяем к самому тексту */}
+</div>
 
-        <div className="agency-description">
-          <p className="book cursor-text">
-            Мы — digital-агентство, которое разрабатывает
-            эффективные и эстетически безупречные решения
-            для вашего бизнеса. Наша цель — не просто
-            создать продукт, а сформировать будущее вашего
-            бренда.
-          </p>
-        </div>
-      </div>
+{/* То же самое для main-heading и agency-description */}
+<div className="main-heading">
+  <h1 className="cursor-text"> {/* Класс cursor-text должен быть здесь */}
+    <span className="text-gray-400">Digital</span><br />
+    <span className="text-gray-500">опыт</span>
+  </h1>
+</div>
+
+<div className="agency-description">
+  <p className="book cursor-text"> {/* Класс cursor-text здесь */}
+    Мы — digital-агентство, которое разрабатывает
+    эффективные и эстетически безупречные решения
+    для вашего бизнеса. Наша цель — не просто
+    создать продукт, а сформировать будущее вашего
+    бренда.
+  </p>
+</div>
+</div>
+      
       
       <div className="profile-card">
         <div className="profile-info">
@@ -337,7 +338,6 @@ const FractalOrbComponent = ({ width = '100%', height = '100vh' }) => {
           </p>
         </div>
       </div>
-      <div ref={cursorRef} className="custom-cursor"></div>
     </div>
   );
 };
