@@ -12,6 +12,7 @@
   z-index: 999999;
   transition: background-color 0.3s ease-in-out;
 }
+
 .custom-cursor.on-text {
   background-color: #96FF33;
   mix-blend-mode: normal;

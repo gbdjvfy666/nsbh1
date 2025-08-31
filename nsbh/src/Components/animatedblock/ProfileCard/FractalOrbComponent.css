@@ -1,7 +1,5 @@
-/* Single font import instead of multiple */
 @import url("https://fonts.googleapis.com/css2?family=Boldonse&family=Bodoni+Moda:ital,opsz,wght@0,6..96,400;0,6..96,700;1,6..96,400&display=swap");
 
-/* Variables for easy customization */
 :root {
   --primary-font: "Boldonse", sans-serif;
   --secondary-font: "Bodoni Moda", serif;
@@ -14,8 +12,6 @@
   --eye-glow-color: #ffff00;
   --red-line-color: #ff0000;
 }
-
-
 
 @keyframes noise-animation {
   0% { transform: translate(0, 0); }
@@ -31,9 +27,8 @@
   100% { transform: translate(1%, 0); }
 }
 
-/* Content to be revealed */
 .content {
-  position: absolute;
+  position: fixed;
   top: 0;
   left: 0;
   width: 100%;
@@ -48,14 +43,12 @@
   color: var(--primary-color);
   pointer-events: none;
 }
+
 .quote-container {
   max-width: 90%;
   overflow: hidden;
 }
-.cursor-text {
-  cursor: none;
-  user-select: none;
-}
+
 .quote {
   font-family: var(--primary-font);
   font-size: var(--quote-size);
@@ -82,7 +75,6 @@
   margin-top: 1vh;
 }
 
-/* Canvas overlay */
 canvas {
   display: block;
   position: fixed !important;
@@ -116,7 +108,6 @@ canvas {
   z-index: 10;
 }
 
-/* Controls panel */
 .dg.ac {
   z-index: 101 !important;
 }
@@ -163,7 +154,7 @@ canvas {
 
 .profile-twitter a {
   text-decoration: none;
-  color: inherit; /* Использует цвет родителя */
+  color: inherit;
   pointer-events: auto;
 }
 
@@ -171,16 +162,6 @@ canvas {
   text-decoration: underline;
 }
 
-/* Также, возможно, стоит добавить для всех ссылок в content, если они есть */
-.content a,
-.content a:visited,
-.content a:hover,
-.content a:active {
-    color: inherit; /* Наследует цвет от родителя, т.е. primary-color */
-    text-decoration: none;
-}
-
-/* Изолированные стили только для компонента FractalOrb */
 .fractal-orb-container {
   position: relative;
   cursor: none;
@@ -193,18 +174,13 @@ canvas {
 }
 
 .fractal-orb-container .three-container {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    pointer-events: none; /* Удалите это */
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
 }
-.cursor-text {
-  pointer-events: auto; /* Разрешаем события мыши на тексте */
-  cursor: none;
-  user-select: none;
-}
+
 .fractal-orb-container .three-container canvas {
   display: block;
   width: 100% !important;
@@ -227,7 +203,7 @@ canvas {
   padding: 20px;
   text-align: center;
   color: #e0e0e0;
-  pointer-events: none;
+  pointer-events: auto; /* УДАЛЕНО: pointer-events: none; */
 }
 
 .fractal-orb-container .quote-container {
@@ -260,7 +236,6 @@ canvas {
   opacity: 0.5;
   margin-top: 1vh;
 }
-
 
 .fractal-orb-container .profile-card {
   position: absolute;
@@ -304,7 +279,6 @@ canvas {
   text-decoration: underline;
 }
 
-/* Main heading styles */
 .main-heading {
   position: absolute;
   top: 50%;
@@ -321,37 +295,33 @@ canvas {
   letter-spacing: -0.05em;
   color: var(--primary-color);
   pointer-events: none;
-  text-align: left; /* Это выравнивает текст по левому краю */
+  text-align: left;
 }
 
 .main-heading span {
   display: block;
 }
 
-/* Выравнивание слова "опыт" */
 .main-heading .text-gray-500 {
   position: relative;
   left: 0.4vw;
 }
 
-/* Стили для текста-описания */
 .agency-description {
-  /* Измененные стили */
   position: absolute;
-  top: 50%; /* Выравнивание по вертикали по центру */
-  right: 150px; /* Позиционирование с правой стороны */
-  transform: translateY(-50%); /* Корректировка для точного центрирования */
+  top: 50%;
+  right: 150px;
+  transform: translateY(-50%);
   width: 400px;
   z-index: 20;
   color: var(--primary-color);
   font-family: sans-serif;
   font-size: 16px;
   line-height: 1.5;
-  text-align: left; /* Выравнивание текста по левому краю */
+  text-align: left;
   pointer-events: none;
 }
 
-/* Медиа-запрос для больших экранов */
 @media (min-width: 1600px) {
   .main-heading h1 {
     line-height: 0.8;
