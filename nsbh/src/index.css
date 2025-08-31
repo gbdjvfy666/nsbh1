@@ -447,25 +447,6 @@ body {
 |-------------------------------------------------------------------------------
 */
 
-.mouse-follower {
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 15px; /* Уменьшаем размер для компактности */
-  height: 15px;
-  border-radius: 50%;
-  background-color: var(--color-follower); /* Используем серый цвет */
-  opacity: 0.7; /* Делаем его полупрозрачным */
-  pointer-events: none;
-  z-index: 9999;
-  mix-blend-mode: difference; /* Стильный эффект на контрастных фонах */
-  transition: opacity 0.3s ease; /* Плавное исчезновение */
-  will-change: transform;
-}
-
-.mouse-follower.hidden {
-  opacity: 0;
-}
 
 .scrollbar-custom::-webkit-scrollbar {
   height: 6px;
