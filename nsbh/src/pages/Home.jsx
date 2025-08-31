@@ -10,10 +10,11 @@ import FractalOrbComponent from '../Components/animatedblock/ProfileCard/Fractal
 import Footer from '../Components/components/footer.jsx';
 import StarBackground from '../Components/background/StarBackground.jsx';
 import SpacePage from '../Components/animatedblock/Spaceswiper/SpacePage.jsx';
-
+import CustomCursor from '../Components/other/CustomCursor.jsx';
 export default function Home() {
   return (
     <div className="min-h-screen bg-white dark:bg-black dark:text-white">
+      <CustomCursor />
       <FractalOrbComponent />
       <Slider />
       

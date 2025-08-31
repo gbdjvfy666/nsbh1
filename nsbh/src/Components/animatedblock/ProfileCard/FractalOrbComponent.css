@@ -15,19 +15,7 @@
   --red-line-color: #ff0000;
 }
 
-.fractal-orb-cursor {
-  position: absolute;
-  width: 20px;
-  height: 20px;
-  border-radius: 50%;
-  background-color: rgba(255, 255, 255, 0.5);
-  transform: translate(-50%, -50%);
-  pointer-events: none;
-  mix-blend-mode: difference;
-  z-index: 9999;
-  transition: width 0.2s, height 0.2s;
-  will-change: transform;
-}
+
 
 @keyframes noise-animation {
   0% { transform: translate(0, 0); }
@@ -90,21 +78,6 @@
   font-size: var(--author-size);
   opacity: 0.5;
   margin-top: 1vh;
-}
-
-/* Custom cursor */
-.custom-cursor {
-  position: fixed;
-  width: var(--cursor-size);
-  height: var(--cursor-size);
-  border-radius: 50%;
-  background-color: rgba(255, 255, 255, 0.5);
-  transform: translate(-50%, -50%);
-  pointer-events: none;
-  mix-blend-mode: difference;
-  z-index: 9999;
-  transition: width 0.2s, height 0.2s;
-  will-change: transform;
 }
 
 /* Canvas overlay */
@@ -272,24 +245,6 @@ canvas {
   margin-top: 1vh;
 }
 
-.fractal-orb-container .custom-cursor {
-  position: absolute;
-  width: 20px;
-  height: 20px;
-  border-radius: 50%;
-  background-color: rgba(255, 255, 255, 0.5);
-  transform: translate(-50%, -50%);
-  pointer-events: none;
-  mix-blend-mode: difference;
-  z-index: 9999;
-  transition: width 0.2s, height 0.2s;
-  will-change: transform;
-  display: none;
-}
-
-.fractal-orb-container:hover .custom-cursor {
-  display: block;
-}
 
 .fractal-orb-container .profile-card {
   position: absolute;

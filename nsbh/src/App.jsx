@@ -7,7 +7,6 @@ import Works from './pages/Works';
 import Test from './pages/test';
 import WebDevelopment from './pages/WebDevelopment';
 import gsap from 'gsap';
-import CustomCursor from './Components/other/CustomCursor.jsx';
 function AppContent() {
   const location = useLocation();
   const containerRef = useRef(null);
@@ -64,7 +63,6 @@ function AppContent() {
         <Route path="/web-development" element={<WebDevelopment />} />
         <Route path="/works" element={<Works />} />
       </Routes>
-      <CustomCursor />
     </div>
   );
 }

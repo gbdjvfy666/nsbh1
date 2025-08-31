@@ -1,20 +1,18 @@
 /* CustomCursor.css */
 
 .custom-cursor {
-  position: fixed;
-  width: 20px;
-  height: 20px;
-  border-radius: 50%;
-  background-color: rgba(255, 255, 255, 0.5);
-  transform: translate(-50%, -50%); /* Центрирование курсора */
-  pointer-events: none;
-  mix-blend-mode: difference;
-  z-index: 999999; /* Очень высокий z-index */
-  will-change: transform;
-  /* Уберем transition, чтобы курсор был более отзывчивым */
+    position: absolute;
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+    background-color: rgba(255, 255, 255, 0.5);
+    transform: translate(-50%, -50%);
+    pointer-events: none;
+    mix-blend-mode: difference;
+    z-index: 999999;
+    will-change: transform;
 }
 
-/* Добавляем класс для скрытия курсора на элементах, которые вы не хотите, чтобы он влиял */
-.hide-cursor {
-  cursor: none;
+.custom-cursor.on-text {
+  background-color: #96FF33;
 }

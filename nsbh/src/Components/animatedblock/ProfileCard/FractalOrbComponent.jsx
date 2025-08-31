@@ -120,7 +120,7 @@ const FractalOrbComponent = ({ width = '100%', height = '100vh' }) => {
             uv += fractalOffset;
             
             float d = length(uv);
-            float pulse = 0.5 + 0.1 * sin(time * animationSpeed * 2.0);
+            float pulse = 0.5;
             
             float shape = smoothstep(pulse, pulse - 0.1, d);
             
@@ -295,33 +295,30 @@ const FractalOrbComponent = ({ width = '100%', height = '100vh' }) => {
     >
       <div ref={sceneRef} className="three-container"></div>
       
-      <div className="content">
-        <div className="main-heading">
-          <h1>
-            <span className="text-gray-400">Digital</span><br />
-            <span className="text-gray-500">опыт</span>
-          </h1>
-        </div>
+<div className="content">
+  <div className="main-heading">
+    <h1 className="cursor-text"> {/* Добавляем класс сюда */}
+      <span className="text-gray-400">Digital</span><br />
+      <span className="text-gray-500">опыт</span>
+    </h1>
+  </div>
 
-        <div className="quote-container">
-          <div className="quote">NSBH</div>
-          <div className="author">Истина в деталях, которые меняют целое</div>
+  <div className="quote-container">
+    <div className="quote cursor-text">NSBH</div> {/* И сюда */}
+    <div className="author cursor-text">Истина в деталях, которые меняют целое</div> {/* И сюда */}
+  </div>
 
-        </div>
-
-        {/* Текст с описанием агентства */}
-        <div className="agency-description">
-          <p className="book">
-            Мы — digital-агентство, которое разрабатывает
-            эффективные и эстетически безупречные решения
-            для вашего бизнеса. Наша цель — не просто
-            создать продукт, а сформировать будущее вашего
-            бренда.
-          </p>
-        </div>
-      </div>
-
-      <div ref={cursorRef} className="custom-cursor"></div>
+  <div className="agency-description">
+    <p className="book cursor-text"> {/* И сюда */}
+      Мы — digital-агентство, которое разрабатывает
+      эффективные и эстетически безупречные решения
+      для вашего бизнеса. Наша цель — не просто
+      создать продукт, а сформировать будущее вашего
+      бренда.
+    </p>
+  </div>
+</div>
+      
       
       <div className="profile-card">
         <div className="profile-info">
