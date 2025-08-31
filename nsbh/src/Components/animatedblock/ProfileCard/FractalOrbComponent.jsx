@@ -3,18 +3,23 @@ import * as THREE from 'three';
 import './FractalOrbComponent.css';
 
 const FractalOrbComponent = ({ width = '100%', height = '100vh' }) => {
+  // All hooks must be called here, at the top level.
   const containerRef = useRef(null);
   const sceneRef = useRef(null);
   const cursorRef = useRef(null);
   const rendererRef = useRef(null);
-
+  const mousePosition = useRef({ x: 0, y: 0 });
+  const smoothedMousePosition = useRef({ x: 0, y: 0 });
+  const requestRef = useRef();
+  
+  // This is the main useEffect for all setup logic
   useEffect(() => {
     if (!containerRef.current || !sceneRef.current) return;
 
     const container = containerRef.current;
     const sceneElement = sceneRef.current;
 
-    // --- Логика для Three.js ---
+    // --- Three.js Logic ---
     const scene = new THREE.Scene();
     const camera = new THREE.OrthographicCamera(-1, 1, 1, -1, 0.1, 10);
     camera.position.z = 1;
@@ -201,11 +206,7 @@ const FractalOrbComponent = ({ width = '100%', height = '100vh' }) => {
     updateSize();
     sceneElement.appendChild(renderer.domElement);
 
-    // --- Логика для кастомного курсора ---
-    const mousePosition = useRef({ x: 0, y: 0 });
-    const smoothedMousePosition = useRef({ x: 0, y: 0 });
-    const requestRef = useRef();
-    
+    // --- Custom Cursor Logic ---
     const handleMouseMove = (e) => {
       mousePosition.current = {
         x: e.clientX,
