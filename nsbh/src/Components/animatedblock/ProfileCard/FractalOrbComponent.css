@@ -82,7 +82,7 @@
 .cursor-text {
   pointer-events: auto;
   cursor: none;
-  user-select: none; /* Запрещает выделение текста */
+  user-select: none;
 }
 /* Canvas overlay */
 canvas {
