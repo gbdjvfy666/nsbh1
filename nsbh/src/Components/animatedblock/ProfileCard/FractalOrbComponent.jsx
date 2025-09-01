@@ -1,7 +1,7 @@
 import React, { useEffect, useRef } from 'react';
 import * as THREE from 'three';
 import './FractalOrbComponent.css';
-
+import CustomCursor from '../../other/CustomCursor';
 const FractalOrbComponent = ({ width = '100%', height = '100vh' }) => {
   const containerRef = useRef(null);
   const sceneRef = useRef(null);
@@ -293,18 +293,19 @@ const FractalOrbComponent = ({ width = '100%', height = '100vh' }) => {
       className="fractal-orb-container"
       style={{ width, height }}
     >
+
       <div ref={sceneRef} className="three-container"></div>
       
 <div className="content">
   <div className="main-heading">
-    <h1 className="cursor-text"> {/* Класс cursor-text должен быть здесь */}
+    <h1 className="hoverable"> {/* Класс cursor-text должен быть здесь */}
       <span className="text-gray-400">Digital</span><br />
       <span className="text-gray-500">опыт</span>
     </h1>
   </div>
 
 <div className="quote-container">
-  <div className="quote cursor-text">NSBH</div> {/* Применяем к самому тексту */}
+  <div className="quote hoverable">NSBH</div> {/* Применяем к самому тексту */}
   <div className="author cursor-text">Истина в деталях, которые меняют целое</div> {/* Применяем к самому тексту */}
 </div>
 

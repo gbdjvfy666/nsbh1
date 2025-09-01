@@ -7,6 +7,7 @@ import Works from './pages/Works';
 import Test from './pages/test';
 import WebDevelopment from './pages/WebDevelopment';
 import gsap from 'gsap';
+
 function AppContent() {
   const location = useLocation();
   const containerRef = useRef(null);
