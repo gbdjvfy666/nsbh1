@@ -6,14 +6,15 @@ const CustomCursor = () => {
   const requestRef = useRef();
   const mousePosition = useRef({ x: 0, y: 0 });
   const smoothedMousePosition = useRef({ x: 0, y: 0 });
-
+  
+  // Этот useEffect будет управлять движением и реакцией курсора
   useEffect(() => {
     const cursor = cursorRef.current;
     
-    // Находим все элементы с классом .hoverable
+    // Находим все элементы, на которые курсор должен реагировать
     const hoverables = document.querySelectorAll('.hoverable');
 
-    // Функция для перемещения курсора
+    // Функция перемещения курсора по экрану
     const handleMouseMove = (e) => {
       mousePosition.current = {
         x: e.clientX,
@@ -21,20 +22,21 @@ const CustomCursor = () => {
       };
     };
 
-    // Функции для наведения (hover)
+    // Функция, которая сработает при наведении на элемент
     const handleMouseEnter = () => {
       if (cursor) {
-        cursor.classList.add('on-text'); // Добавляем класс при наведении
+        cursor.classList.add('on-text'); // Добавляем класс, который изменит цвет
       }
     };
     
+    // Функция, которая сработает, когда мышь уйдёт с элемента
     const handleMouseLeave = () => {
       if (cursor) {
-        cursor.classList.remove('on-text'); // Удаляем класс при уходе
+        cursor.classList.remove('on-text'); // Удаляем класс, чтобы вернуть исходный цвет
       }
     };
 
-    // Анимация движения курсора
+    // Функция для плавной анимации курсора
     const animate = () => {
       const targetX = mousePosition.current.x + window.scrollX;
       const targetY = mousePosition.current.y + window.scrollY;
@@ -48,17 +50,17 @@ const CustomCursor = () => {
       requestRef.current = requestAnimationFrame(animate);
     };
 
-    // Добавляем слушатели событий на весь экран для перемещения курсора
+    // Добавляем слушатели событий на весь экран
     window.addEventListener('mousemove', handleMouseMove);
     requestRef.current = requestAnimationFrame(animate);
 
-    // Добавляем слушатели событий на элементы с классом .hoverable
+    // Добавляем слушатели событий на найденные элементы
     hoverables.forEach(element => {
       element.addEventListener('mouseenter', handleMouseEnter);
       element.addEventListener('mouseleave', handleMouseLeave);
     });
 
-    // Функция очистки: удаляем все слушатели, когда компонент размонтируется
+    // Очищаем слушатели, когда компонент исчезает со страницы
     return () => {
       window.removeEventListener('mousemove', handleMouseMove);
       cancelAnimationFrame(requestRef.current);
@@ -67,9 +69,8 @@ const CustomCursor = () => {
         element.removeEventListener('mouseleave', handleMouseLeave);
       });
     };
-  }, []); // Пустой массив зависимостей, чтобы слушатели добавились только один раз
+  }, []);
 
-  // JSX-разметка курсора
   return <div ref={cursorRef} className="custom-cursor"></div>;
 };
 

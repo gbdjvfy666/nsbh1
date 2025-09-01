@@ -41,7 +41,6 @@
   padding: 20px;
   text-align: center;
   color: var(--primary-color);
-  pointer-events: none;
 }
 
 .quote-container {
@@ -294,7 +293,6 @@ canvas {
   text-transform: uppercase;
   letter-spacing: -0.05em;
   color: var(--primary-color);
-  pointer-events: none;
   text-align: left;
 }
 
@@ -306,7 +304,10 @@ canvas {
   position: relative;
   left: 0.4vw;
 }
-
+.hoverable {
+  pointer-events: auto; /* Разрешаем события мыши на этом элементе */
+  cursor: none; /* Убираем стандартный курсор */
+}
 .agency-description {
   position: absolute;
   top: 50%;
@@ -319,7 +320,6 @@ canvas {
   font-size: 16px;
   line-height: 1.5;
   text-align: left;
-  pointer-events: none;
 }
 
 @media (min-width: 1600px) {

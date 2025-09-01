@@ -5,7 +5,6 @@ import './FractalOrbComponent.css';
 const FractalOrbComponent = ({ width = '100%', height = '100vh' }) => {
   const containerRef = useRef(null);
   const sceneRef = useRef(null);
-  const cursorRef = useRef(null);
   const rendererRef = useRef(null);
 
   useEffect(() => {
@@ -66,9 +65,7 @@ const FractalOrbComponent = ({ width = '100%', height = '100vh' }) => {
         grainStrength: { value: grainStrength },
         grainSize: { value: grainSize },
         animationSpeed: { value: animationSpeed },
-        autoRotate: { value: autoRotate ? 1.0 : 0.0 },
-        // --- НОВАЯ УНИФОРМА ДЛЯ ЦВЕТА ---
-        isOverText: { value: 0.0 }
+        autoRotate: { value: autoRotate ? 1.0 : 0.0 }
       },
       vertexShader: `
         varying vec2 vUv;
@@ -95,8 +92,6 @@ const FractalOrbComponent = ({ width = '100%', height = '100vh' }) => {
         uniform float grainSize;
         uniform float animationSpeed;
         uniform float autoRotate;
-        // --- ОБЪЯВЛЕНИЕ НОВОЙ УНИФОРМЫ ---
-        uniform float isOverText;
 
         #define PI 3.14159265359
 
@@ -187,11 +182,7 @@ const FractalOrbComponent = ({ width = '100%', height = '100vh' }) => {
             float noise = hash(uvRandom * grainSize + iTime * 0.1) * grainStrength;
             baseColor += noise - grainStrength * 0.5;
             
-            // --- НОВАЯ ЛОГИКА СМЕШИВАНИЯ ЦВЕТОВ ---
-            vec3 greenColor = vec3(0.0, 1.0, 0.0);
-            vec3 finalColor = mix(baseColor, greenColor, isOverText);
-            
-            gl_FragColor = vec4(finalColor, 1.0);
+            gl_FragColor = vec4(baseColor, 1.0);
         }
       `
     });
@@ -216,14 +207,8 @@ const FractalOrbComponent = ({ width = '100%', height = '100vh' }) => {
       const mouseX = (event.clientX - rect.left) / rect.width;
       const mouseY = 1.0 - (event.clientY - rect.top) / rect.height;
       mouse.set(mouseX, mouseY);
-      
-      // ... ваш код для управления CustomCursor ...
-      if (cursorRef.current) {
-        cursorRef.current.style.left = `${event.clientX}px`;
-        cursorRef.current.style.top = `${event.clientY}px`;
-      }
     };
-    
+
     const handleMouseDown = () => {
       mouseDown = true;
       shaderMaterial.uniforms.mouseDown.value = 1.0;
@@ -234,43 +219,10 @@ const FractalOrbComponent = ({ width = '100%', height = '100vh' }) => {
       shaderMaterial.uniforms.mouseDown.value = 0.0;
     };
     
-    const handleMouseEnter = () => {
-        if (cursorRef.current) {
-          cursorRef.current.style.display = 'block';
-        }
-    };
-    
-    const handleMouseLeave = () => {
-        if (cursorRef.current) {
-          cursorRef.current.style.display = 'none';
-        }
-    };
-    
-    // --- НОВАЯ ЛОГИКА ДЛЯ НАВЕДЕНИЯ ---
-    const hoverables = document.querySelectorAll('.hoverable');
-
-    const handleHoverEnter = () => {
-        shaderMaterial.uniforms.isOverText.value = 1.0;
-    };
-
-    const handleHoverLeave = () => {
-        shaderMaterial.uniforms.isOverText.value = 0.0;
-    };
-    // ------------------------------------
-    
     container.addEventListener("mousemove", handleMouseMove);
     container.addEventListener("mousedown", handleMouseDown);
     container.addEventListener("mouseup", handleMouseUp);
-    container.addEventListener("mouseenter", handleMouseEnter);
-    container.addEventListener("mouseleave", handleMouseLeave);
     
-    // --- ДОБАВЛЕНИЕ СЛУШАТЕЛЕЙ К ЭЛЕМЕНТАМ ---
-    hoverables.forEach(el => {
-      el.addEventListener('mouseenter', handleHoverEnter);
-      el.addEventListener('mouseleave', handleHoverLeave);
-    });
-    // ------------------------------------
-
     let animationId;
     function animate() {
       animationId = requestAnimationFrame(animate);
@@ -305,15 +257,6 @@ const FractalOrbComponent = ({ width = '100%', height = '100vh' }) => {
       container.removeEventListener("mousemove", handleMouseMove);
       container.removeEventListener("mousedown", handleMouseDown);
       container.removeEventListener("mouseup", handleMouseUp);
-      container.removeEventListener("mouseenter", handleMouseEnter);
-      container.removeEventListener("mouseleave", handleMouseLeave);
-      
-      // --- ОЧИСТКА СЛУШАТЕЛЕЙ ---
-      hoverables.forEach(el => {
-        el.removeEventListener('mouseenter', handleHoverEnter);
-        el.removeEventListener('mouseleave', handleHoverLeave);
-      });
-      // --------------------------------
 
       if (sceneElement.contains(renderer.domElement)) {
         sceneElement.removeChild(renderer.domElement);
@@ -332,26 +275,26 @@ const FractalOrbComponent = ({ width = '100%', height = '100vh' }) => {
       
       <div className="content">
         <div className="main-heading">
-          <h1 className="hoverable"> {/* Класс hoverable здесь */}
+          <h1 className="hoverable"> 
             <span className="text-gray-400">Digital</span><br />
             <span className="text-gray-500">опыт</span>
           </h1>
         </div>
 
         <div className="quote-container">
-          <div className="quote hoverable">NSBH</div> {/* Класс hoverable здесь */}
-          <div className="author">Истина в деталях, которые меняют целое</div>
+          <div className="quote hoverable">NSBH</div>
+          <div className="author hoverable">Истина в деталях, которые меняют целое</div>
         </div>
 
         <div className="main-heading">
-          <h1>
+          <h1 className="hoverable">
             <span className="text-gray-400">Digital</span><br />
             <span className="text-gray-500">опыт</span>
           </h1>
         </div>
 
         <div className="agency-description">
-          <p className="book">
+          <p className="book hoverable">
             Мы — digital-агентство, которое разрабатывает
             эффективные и эстетически безупречные решения
             для вашего бизнеса. Наша цель — не просто
