@@ -1,19 +1,20 @@
-/* CustomCursor.css */
+/* src/components/CustomCursor/CustomCursor.css */
 
 .custom-cursor {
   position: absolute;
   width: 20px;
   height: 20px;
   border-radius: 50%;
-  background-color: rgba(255, 255, 255, 0.5);
+  background-color: rgba(255, 255, 255, 0.5); /* Цвет по умолчанию */
   transform: translate(-50%, -50%);
   pointer-events: none;
   mix-blend-mode: difference;
   z-index: 999999;
-  transition: background-color 0.3s ease-in-out;
+  transition: background-color 0.3s ease-in-out; /* Добавляем плавный переход */
 }
 
+/* Этот класс добавляется JavaScript для изменения цвета */
 .custom-cursor.on-text {
-  background-color: #96FF33;
-  mix-blend-mode: normal;
+  background-color: #96FF33; /* Зеленый цвет */
+  mix-blend-mode: normal; /* Меняем blend-mode для лучшего эффекта */
 }

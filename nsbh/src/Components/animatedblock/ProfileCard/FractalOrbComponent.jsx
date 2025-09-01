@@ -1,7 +1,7 @@
 import React, { useEffect, useRef } from 'react';
 import * as THREE from 'three';
 import './FractalOrbComponent.css';
-import CustomCursor from '../../other/CustomCursor';
+
 const FractalOrbComponent = ({ width = '100%', height = '100vh' }) => {
   const containerRef = useRef(null);
   const sceneRef = useRef(null);
@@ -66,7 +66,9 @@ const FractalOrbComponent = ({ width = '100%', height = '100vh' }) => {
         grainStrength: { value: grainStrength },
         grainSize: { value: grainSize },
         animationSpeed: { value: animationSpeed },
-        autoRotate: { value: autoRotate ? 1.0 : 0.0 }
+        autoRotate: { value: autoRotate ? 1.0 : 0.0 },
+        // --- НОВАЯ УНИФОРМА ДЛЯ ЦВЕТА ---
+        isOverText: { value: 0.0 }
       },
       vertexShader: `
         varying vec2 vUv;
@@ -93,6 +95,8 @@ const FractalOrbComponent = ({ width = '100%', height = '100vh' }) => {
         uniform float grainSize;
         uniform float animationSpeed;
         uniform float autoRotate;
+        // --- ОБЪЯВЛЕНИЕ НОВОЙ УНИФОРМЫ ---
+        uniform float isOverText;
 
         #define PI 3.14159265359
 
@@ -183,7 +187,11 @@ const FractalOrbComponent = ({ width = '100%', height = '100vh' }) => {
             float noise = hash(uvRandom * grainSize + iTime * 0.1) * grainStrength;
             baseColor += noise - grainStrength * 0.5;
             
-            gl_FragColor = vec4(baseColor, 1.0);
+            // --- НОВАЯ ЛОГИКА СМЕШИВАНИЯ ЦВЕТОВ ---
+            vec3 greenColor = vec3(0.0, 1.0, 0.0);
+            vec3 finalColor = mix(baseColor, greenColor, isOverText);
+            
+            gl_FragColor = vec4(finalColor, 1.0);
         }
       `
     });
@@ -209,12 +217,13 @@ const FractalOrbComponent = ({ width = '100%', height = '100vh' }) => {
       const mouseY = 1.0 - (event.clientY - rect.top) / rect.height;
       mouse.set(mouseX, mouseY);
       
+      // ... ваш код для управления CustomCursor ...
       if (cursorRef.current) {
         cursorRef.current.style.left = `${event.clientX}px`;
         cursorRef.current.style.top = `${event.clientY}px`;
       }
     };
-
+    
     const handleMouseDown = () => {
       mouseDown = true;
       shaderMaterial.uniforms.mouseDown.value = 1.0;
@@ -224,24 +233,43 @@ const FractalOrbComponent = ({ width = '100%', height = '100vh' }) => {
       mouseDown = false;
       shaderMaterial.uniforms.mouseDown.value = 0.0;
     };
-
+    
     const handleMouseEnter = () => {
         if (cursorRef.current) {
           cursorRef.current.style.display = 'block';
         }
     };
-  
+    
     const handleMouseLeave = () => {
         if (cursorRef.current) {
           cursorRef.current.style.display = 'none';
         }
     };
     
+    // --- НОВАЯ ЛОГИКА ДЛЯ НАВЕДЕНИЯ ---
+    const hoverables = document.querySelectorAll('.hoverable');
+
+    const handleHoverEnter = () => {
+        shaderMaterial.uniforms.isOverText.value = 1.0;
+    };
+
+    const handleHoverLeave = () => {
+        shaderMaterial.uniforms.isOverText.value = 0.0;
+    };
+    // ------------------------------------
+    
     container.addEventListener("mousemove", handleMouseMove);
     container.addEventListener("mousedown", handleMouseDown);
     container.addEventListener("mouseup", handleMouseUp);
     container.addEventListener("mouseenter", handleMouseEnter);
     container.addEventListener("mouseleave", handleMouseLeave);
+    
+    // --- ДОБАВЛЕНИЕ СЛУШАТЕЛЕЙ К ЭЛЕМЕНТАМ ---
+    hoverables.forEach(el => {
+      el.addEventListener('mouseenter', handleHoverEnter);
+      el.addEventListener('mouseleave', handleHoverLeave);
+    });
+    // ------------------------------------
 
     let animationId;
     function animate() {
@@ -279,6 +307,13 @@ const FractalOrbComponent = ({ width = '100%', height = '100vh' }) => {
       container.removeEventListener("mouseup", handleMouseUp);
       container.removeEventListener("mouseenter", handleMouseEnter);
       container.removeEventListener("mouseleave", handleMouseLeave);
+      
+      // --- ОЧИСТКА СЛУШАТЕЛЕЙ ---
+      hoverables.forEach(el => {
+        el.removeEventListener('mouseenter', handleHoverEnter);
+        el.removeEventListener('mouseleave', handleHoverLeave);
+      });
+      // --------------------------------
 
       if (sceneElement.contains(renderer.domElement)) {
         sceneElement.removeChild(renderer.domElement);
@@ -293,41 +328,38 @@ const FractalOrbComponent = ({ width = '100%', height = '100vh' }) => {
       className="fractal-orb-container"
       style={{ width, height }}
     >
-
       <div ref={sceneRef} className="three-container"></div>
       
-<div className="content">
-  <div className="main-heading">
-    <h1 className="hoverable"> {/* Класс cursor-text должен быть здесь */}
-      <span className="text-gray-400">Digital</span><br />
-      <span className="text-gray-500">опыт</span>
-    </h1>
-  </div>
+      <div className="content">
+        <div className="main-heading">
+          <h1 className="hoverable"> {/* Класс hoverable здесь */}
+            <span className="text-gray-400">Digital</span><br />
+            <span className="text-gray-500">опыт</span>
+          </h1>
+        </div>
 
-<div className="quote-container">
-  <div className="quote hoverable">NSBH</div> {/* Применяем к самому тексту */}
-  <div className="author cursor-text">Истина в деталях, которые меняют целое</div> {/* Применяем к самому тексту */}
-</div>
+        <div className="quote-container">
+          <div className="quote hoverable">NSBH</div> {/* Класс hoverable здесь */}
+          <div className="author">Истина в деталях, которые меняют целое</div>
+        </div>
 
-{/* То же самое для main-heading и agency-description */}
-<div className="main-heading">
-  <h1 className="cursor-text"> {/* Класс cursor-text должен быть здесь */}
-    <span className="text-gray-400">Digital</span><br />
-    <span className="text-gray-500">опыт</span>
-  </h1>
-</div>
+        <div className="main-heading">
+          <h1>
+            <span className="text-gray-400">Digital</span><br />
+            <span className="text-gray-500">опыт</span>
+          </h1>
+        </div>
 
-<div className="agency-description">
-  <p className="book cursor-text"> {/* Класс cursor-text здесь */}
-    Мы — digital-агентство, которое разрабатывает
-    эффективные и эстетически безупречные решения
-    для вашего бизнеса. Наша цель — не просто
-    создать продукт, а сформировать будущее вашего
-    бренда.
-  </p>
-</div>
-</div>
-      
+        <div className="agency-description">
+          <p className="book">
+            Мы — digital-агентство, которое разрабатывает
+            эффективные и эстетически безупречные решения
+            для вашего бизнеса. Наша цель — не просто
+            создать продукт, а сформировать будущее вашего
+            бренда.
+          </p>
+        </div>
+      </div>
       
       <div className="profile-card">
         <div className="profile-info">
